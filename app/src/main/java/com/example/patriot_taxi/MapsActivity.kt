@@ -45,9 +45,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000*10, 10, locationListener);
 
     }
-    private lateinit var locationListener: LocationListener = LocationListener();
+    private var locationListener: LocationListener = LocationListener(){
+         fun onLocationChanged(location: Location) {
+            showLocation(location);
+        }
 
+        fun onProviderDisable(provider:String){
+            checkEnabled();
+        }
 
+        fun onProviderEnable(provider:String){
+            checkEnabled();
+            showLocation(locationManager.getLastKnownLocation(provider));
+        }
+    };
+
+    fun showLocation(location: Location){
+        if(location == null){
+            return;
+        }
+        if(location.provider.equals(LocationManager.GPS_PROVIDER)){
+
+        }
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
