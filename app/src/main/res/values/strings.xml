@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Patriot-taxi</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps">Patriot-taxi</string>
+    <string name="provider_gps">GPS</string>
+    <string name="provider_network">Network</string>
+    <string name="Location_settings">Location settings</string>
+
 </resources>

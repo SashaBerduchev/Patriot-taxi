@@ -1,7 +1,12 @@
 package com.example.patriot_taxi
 
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -17,6 +22,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
+
+    private lateinit var locationManager: LocationManager;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +35,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager;
+
     }
+
+    override fun onResume(){
+        super.onResume();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000*10, 10, locationListener);
+
+    }
+    private lateinit var locationListener: LocationListener = LocationListener();
+
 
     /**
      * Manipulates the map once available.
@@ -45,5 +64,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu):Boolean {
+        val inflater = getMenuInflater()
+        inflater.inflate(R.menu.mainmenu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem):Boolean {
+        val id = item.getItemId()
+        if (id == R.id.action_plus)
+        {
+            // тут что-то делать
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
