@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -42,7 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume(){
         super.onResume();
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000*10, 10, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000*10, 10f, locationListener);
 
     }
     private var locationListener: LocationListener = LocationListener(){
@@ -60,13 +59,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     };
 
-    fun showLocation(location: Location){
+    fun showLocation(location: Location?){
         if(location == null){
             return;
         }
         if(location.provider.equals(LocationManager.GPS_PROVIDER)){
 
         }
+    }
+
+    fun checkEnabled(){
+
     }
     /**
      * Manipulates the map once available.
